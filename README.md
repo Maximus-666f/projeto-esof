@@ -73,30 +73,3 @@ Also provide a short textual description of each concept (domain class).
 ### Vertical prototype
 
 [TODO]
-
-
-
-
-
-
-USER STORIES:
-
-As a user, I want to be able to sign up and log in to the app using my email and password so that I can access its features.
-
-As a user, if I forget my password, I want to be able to be able to recover my account and change my password to a new one.
-
-As a user, I want to be able to change my email address, username and password associated with my account.
-
-As a user, I want to be able to delete my account.
-
-As a user, I want to see a map displaying all the available bins nearby so that I can easily locate them.
-
-As a user, I want to be able to add a new bin in a specific location on the map,  as well as specity the type of trash it accepts so that others can find it and use it.
-
-As a user, I want to be able to report a bin if it's falsely marked or if there's an issue with it so that it can be addressed.
-
-As a user, I want to view details about a specific bin, including its location, type(s), and the number of votes and reports associated with it, so that I can make an informed decision about using it.
-
-As a user, I want to track my contributions to the app (such as adding new bins or reporting issues) and see my level or progress within the community.
-
-As a user, I want to be able to filter the bins displayed on the map based on their types (e.g., only show bins for recycling paper) so that I can find the most relevant bins for my needs.
