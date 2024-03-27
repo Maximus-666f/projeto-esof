@@ -60,16 +60,15 @@ Also provide a short textual description of each concept (domain class).
 
 ## Architecture and Design
 
-[TODO]
-
 ### Logical architecture
 
-[TODO]
+![logical architecture](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/logical_architecture.jpg)
 
 ### Physical architecture
 
-[TODO]
+![physical architecture](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/physical_architecture.jpg)
 
 ### Vertical prototype
 
-[TODO]
+A really basic application, with the 3 main pages: Profile, Map and Search with the buttons already present but that don't interact with anything yet, except the navigation bar which is functional.
+We also added some example data, the map has a bin marker right on top of FEUP that can be clicked and shows more information. In the search screen there are a lot of results that are presented has buttons, although they don't yet redirect to their specific bin in the map. In both the previous screens the toggable buttons to filter by specific type of bins do toggle on and off but don't do anything yet. In the profile page there are also the edit profile and delete account buttons that also don't do anything yet.
