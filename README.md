@@ -17,6 +17,7 @@ You can find here details about the _Bin Finder_, from a high-level vision to lo
     - [Logical architecture](#logical-architecture)
     - [Physical architecture](#physical-architecture)
     - [Vertical prototype](#vertical-prototype)
+  - [Project management](#project-management)
 
 Contributions are expected to be made exclusively by the initial team, but we may open them to the community, after the course, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
 
@@ -72,3 +73,9 @@ Also provide a short textual description of each concept (domain class).
 
 A really basic application, with the 3 main pages: Profile, Map and Search with the buttons already present but that don't interact with anything yet, except the navigation bar which is functional.
 We also added some example data, the map has a bin marker right on top of FEUP that can be clicked and shows more information. In the search screen there are a lot of results that are presented has buttons, although they don't yet redirect to their specific bin in the map. In both the previous screens the toggable buttons to filter by specific type of bins do toggle on and off but don't do anything yet. In the profile page there are also the edit profile and delete account buttons that also don't do anything yet.
+
+## Project management
+
+Iteration 0 project board:
+
+![iteration 0 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/project_board.png)
