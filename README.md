@@ -78,4 +78,4 @@ We also added some example data, the map has a bin marker right on top of FEUP t
 
 Iteration 0 project board:
 
-![iteration 0 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/project_board.png)
+![iteration 0 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/project_board_screenshot.png)
