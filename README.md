@@ -54,10 +54,11 @@ This app will allow the user to access a map with the distribution of trash and 
 
 ### Domain model
 
-To better understand the context of the software system, it is very useful to have a simple UML class diagram with all the key concepts (names, attributes) and relationships involved of the problem domain addressed by your module. 
-Also provide a short textual description of each concept (domain class). 
-
 ![domain model](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/domain_model.jpeg)
+
+UserStats - only has derived attributes
+Votes - the type attribute indicates whether it's a like or dislike
+BinType - the type attribute indicates which of the 4 bins it is: BlackBin, GreenBin, YellowBin and BlueBin
 
 ## Architecture and Design
 
@@ -79,3 +80,11 @@ We also added some example data, the map has a bin marker right on top of FEUP t
 Iteration 0 project board:
 
 ![iteration 0 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/project_board_screenshot.png)
+
+Beginning iteration 1 project board:
+
+![beginning iteration 1 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/beginning_iteration_1_project_board_screenshot.png)
+
+End iteration 1 project board:
+
+![end iteration 1 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/end_iteration_1_project_board_screenshot.png)
