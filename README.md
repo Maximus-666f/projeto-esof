@@ -88,3 +88,11 @@ Beginning iteration 1 project board:
 End iteration 1 project board:
 
 ![end iteration 1 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/end_iteration_1_project_board_screenshot.png)
+
+Retrospective:
+
+
+
+Changelog:
+
+
