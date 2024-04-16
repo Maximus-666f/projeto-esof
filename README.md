@@ -26,7 +26,9 @@ Please contact us!
 Thank you!
 
 *Rodrigo Pinto Pesqueira Gaspar Pombo - up202105374@up.pt*
+
 *Liess Pereira Aouimeur - up202206296@up.pt*
+
 *Pedro Jorge das Neves Pinto Vieira - up202206230@fe.up.pt*
 
 ---
@@ -57,7 +59,9 @@ This app will allow the user to access a map with the distribution of trash and 
 ![domain model](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/domain_model.jpeg)
 
 UserStats - only has derived attributes
+
 Votes - the type attribute indicates whether it's a like or dislike
+
 BinType - the type attribute indicates which of the 4 bins it is: BlackBin, GreenBin, YellowBin and BlueBin
 
 ## Architecture and Design
@@ -73,6 +77,7 @@ BinType - the type attribute indicates which of the 4 bins it is: BlackBin, Gree
 ### Vertical prototype
 
 A really basic application, with the 3 main pages: Profile, Map and Search with the buttons already present but that don't interact with anything yet, except the navigation bar which is functional.
+
 We also added some example data, the map has a bin marker right on top of FEUP that can be clicked and shows more information. In the search screen there are a lot of results that are presented has buttons, although they don't yet redirect to their specific bin in the map. In both the previous screens the toggable buttons to filter by specific type of bins do toggle on and off but don't do anything yet. In the profile page there are also the edit profile and delete account buttons that also don't do anything yet.
 
 ## Project management
@@ -89,10 +94,17 @@ End iteration 1 project board:
 
 ![end iteration 1 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/end_iteration_1_project_board_screenshot.png)
 
-Retrospective:
+Sprint 1 retrospective:
 
+We had dificulties dealing with async functions and enabling the pages to pass information from one another.
 
+Happiness meter: We are satisfied with the progress made during this sprint. We are confident that at this rate we'll be able to finish this project.
 
-Changelog:
+Sprint 1 changelog:
 
-
+Changed/Implemented features:
+- Redid the map and markers using diferent package;
+- The filter buttons are now working both in the map and in the search pages (the search page will be renamed to list in the next sprint);
+- Started implementing the pop-up for the markers but it's not yet finalised;
+- Changed the profile page to have a table with data for each specific type of bin added, liked or disliked by the user;
+- Started implementing a marker for the user location, not yet fully working;
