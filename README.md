@@ -103,8 +103,8 @@ Happiness meter: We are satisfied with the progress made during this sprint. We 
 Sprint 1 changelog:
 
 Changed/Implemented features:
-- Redid the map and markers using diferent package;
-- The filter buttons are now working both in the map and in the search pages (the search page will be renamed to list in the next sprint);
-- Started implementing the pop-up for the markers but it's not yet finalised;
-- Changed the profile page to have a table with data for each specific type of bin added, liked or disliked by the user;
-- Started implementing a marker for the user location, not yet fully working;
+- Redid the map and markers using diferent package; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2
+- The filter buttons are now working both in the map and in the search pages (the search page will be renamed to list in the next sprint); https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/5
+- Started implementing the pop-up for the markers but it's not yet finalised; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/1 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3
+- Changed the profile page to have a table with data for each specific type of bin added, liked or disliked by the user; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/4
+- Started implementing a marker for the user location, not yet fully working; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2
