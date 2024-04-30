@@ -108,3 +108,30 @@ Changed/Implemented features:
 - Started implementing the pop-up for the markers but it's not yet finalised; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/1 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3
 - Changed the profile page to have a table with data for each specific type of bin added, liked or disliked by the user; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/4
 - Started implementing a marker for the user location, not yet fully working; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2
+
+Beginning iteration 2 project board:
+
+![beginning iteration 2 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/beginning_iteration_2_project_board_screenshot.png)
+
+End iteration 2 project board:
+
+![end iteration 2 project board](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/end_iteration_2_project_board_screenshot.png)
+
+Sprint 2 retrospective:
+
+The User Interface is for the most part already implemented, leaving, for the features implemented, just the tests and data base to be added.
+
+Happiness meter: Due to problems with the implementation of the data base, we are somewhat satisfied with the progress made during this sprint. Thus we don't know if the complete termination of the project will be possible, particularly the tests for each user story.
+
+Sprint 2 changelog:
+
+Changed/Implemented features:
+- The interface for the marker's pop-up was finalised; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/1 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3
+- Added a "favorites" button for the bins, changing it's border on the map from black to amber and from green to amber on the list; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2
+- It's now possible to go from the list to the bin pop-up of the bin chosen; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2
+- The "directions" button now works and sends the user to google maps with the directions from the user position to the location of the bin; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3
+- A table in the user profile page showing the user's number of liked bins, disliked bins and added bins for each bin type was added; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/4
+- Interface for adding bins to the map was implemented; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/7
+- The "delete account" button was implemented in the user's profile page; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/6
+- New button to center the map on the user's position was added; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2
+- In general, the colors were changed everywhere;
