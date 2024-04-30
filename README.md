@@ -126,7 +126,7 @@ Happiness meter: Due to problems with the implementation of the data base, we ar
 Sprint 2 changelog:
 
 Changed/Implemented features:
-- The interface for the marker's pop-up was finalised; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/1 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3
+- The interface for the marker's pop-up was finalised; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/1 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/5
 - Added a "favorites" button for the bins, changing it's border on the map from black to amber and from green to amber on the list; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2
 - It's now possible to go from the list to the bin pop-up of the bin chosen; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2
 - The "directions" button now works and sends the user to google maps with the directions from the user position to the location of the bin; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3
