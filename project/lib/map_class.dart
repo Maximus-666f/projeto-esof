@@ -5,8 +5,9 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class Map extends StatefulWidget {
+class MapClass extends StatefulWidget {
   @override
   _MapState createState() => _MapState();
 }
@@ -34,7 +35,7 @@ class StructMarkerItem {
 }
 
 
-class _MapState extends State<Map> {
+class _MapState extends State<MapClass> {
   // Variables to store the toggle state of each type of bin
   bool displayBlackBins = true;
   bool displayGreenBins = true;
@@ -132,7 +133,6 @@ class _MapState extends State<Map> {
 
     return aux.map((e) => e!);
   }
-
   final MapController customMapController = MapController();
 
   Marker getMarkerWhereIdMatch(List<Marker> markers) {
@@ -197,9 +197,21 @@ class _MapState extends State<Map> {
   }
   final PopupController _popupLayerController = PopupController();
 
-  late Map data;
+  Map data = {};
   late int popup_id_to_show_for_popup;
   late int popup_id_to_show_for_map;
+
+  void _openMaps(double latitude, double longitude) async {
+    final Uri url = Uri.parse('https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude');
+
+    // check google maps is installed
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      // error message: google maps is not installed
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,8 +219,7 @@ class _MapState extends State<Map> {
     try {
       data = ModalRoute.of(context)!.settings.arguments as Map;
       popup_id_to_show_for_popup = data['bin_id'];
-      // popup_id_to_show_for_popup = data[bin_id];
-      // popup_id_to_show_for_map = data[bin_id];
+      popup_id_to_show_for_map = data['bin_id'];
     } catch(e) {
       popup_id_to_show_for_popup = 0;
       popup_id_to_show_for_map = 0;
@@ -317,6 +328,7 @@ class _MapState extends State<Map> {
                                   ),
                                   onPressed: () {
                                     // [TODO] open google maps and show the directions to the bin
+                                    _openMaps(item.latitude, item.longitude);
                                   },
                                 ),
                                 ElevatedButton(
@@ -451,8 +463,9 @@ class _MapState extends State<Map> {
                 height: 56,
               ),
               FloatingActionButton(
-                onPressed: () {
-                  customMapController.move(LatLng(initial_latitude, initial_longitude), 16.0);
+                onPressed: () async {
+                  Position current_position = await Geolocator.getCurrentPosition();
+                  customMapController.move(LatLng(current_position.latitude, current_position.longitude), 16.0);
                 },
                 child: Icon(Icons.gps_fixed),
                 backgroundColor: Colors.white,

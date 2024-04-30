@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'map.dart';
+import 'map_class.dart';
 import 'profile.dart';
 import 'search.dart';
 
@@ -13,7 +13,7 @@ void main() {
       routes: {
         // '/' : (context) => Loading(),
         // '/login': (context) => Login(),
-        '/map': (context) => Map(),
+        '/map': (context) => MapClass(),
         '/profile': (context) => Profile(),
         // '/edit_profile': (context) => EditProfile(),
         '/search': (context) => Search(),

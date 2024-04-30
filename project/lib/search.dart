@@ -18,8 +18,9 @@ class StructSearchItem {
   final int distance;
   final int likes;
   final int dislikes;
+  final bool is_favorite;
 
-  StructSearchItem(this.id, this.bintype, this.distance, this.likes, this.dislikes);
+  StructSearchItem(this.id, this.bintype, this.distance, this.likes, this.dislikes, this.is_favorite);
 }
 
 class _SearchState extends State<Search> {
@@ -35,21 +36,22 @@ class _SearchState extends State<Search> {
   bool activated_display_blue_bins_button = false;
 
   List<StructSearchItem> searchResults = [
-    new StructSearchItem(1, BinType.Black, 20, 10, 2),
-    new StructSearchItem(2, BinType.Green, 30, 5, 1),
-    new StructSearchItem(3, BinType.Yellow, 40, 3, 0),
-    new StructSearchItem(4, BinType.Blue, 50, 1, 0),
-    new StructSearchItem(5, BinType.Black, 70, 15, 7),
-    new StructSearchItem(6, BinType.Green, 80, 20, 5),
-    new StructSearchItem(7, BinType.Yellow, 90, 25, 3),
-    new StructSearchItem(8, BinType.Blue, 100, 30, 2),
-    new StructSearchItem(9, BinType.Black, 120, 35, 10),
-    new StructSearchItem(10, BinType.Green, 130, 40, 8),
-    new StructSearchItem(11, BinType.Yellow, 140, 45, 5),
-    new StructSearchItem(12, BinType.Black, 150, 50, 3),
-    new StructSearchItem(13, BinType.Black, 170, 55, 15),
-    new StructSearchItem(14, BinType.Blue, 180, 60, 12),
-    new StructSearchItem(15, BinType.Green, 190, 65, 10),
+    new StructSearchItem(1, BinType.Black, 20, 10, 2, true),
+    new StructSearchItem(2, BinType.Green, 30, 5, 1, false),
+    new StructSearchItem(3, BinType.Yellow, 40, 3, 0, false),
+    new StructSearchItem(4, BinType.Blue, 50, 1, 0, false),
+    new StructSearchItem(5, BinType.Black, 70, 15, 7, true),
+    new StructSearchItem(6, BinType.Green, 80, 20, 5, false),
+    new StructSearchItem(7, BinType.Yellow, 90, 25, 3, true),
+    new StructSearchItem(8, BinType.Blue, 100, 30, 2, false),
+    new StructSearchItem(9, BinType.Black, 120, 35, 10, true),
+    new StructSearchItem(10, BinType.Green, 130, 40, 8, false),
+    new StructSearchItem(11, BinType.Yellow, 140, 45, 5, true),
+    new StructSearchItem(12, BinType.Black, 150, 50, 3, false),
+    new StructSearchItem(13, BinType.Black, 170, 55, 15, false),
+    new StructSearchItem(14, BinType.Blue, 180, 60, 12, true),
+    new StructSearchItem(15, BinType.Green, 190, 65, 10, false),
+    new StructSearchItem(0, BinType.Yellow, 200, 70, 7, true),
     // Add search results here
   ];
 
@@ -71,7 +73,7 @@ class _SearchState extends State<Search> {
               return Container();
             }
             return Divider(
-              color: Colors.black,
+              color: Colors.white,
               thickness: 1.0,
               height: 1.0,
             );
@@ -86,17 +88,24 @@ class _SearchState extends State<Search> {
               skip_next_divider = true;
               return Container();
             }
+            if (searchResults[resultIndex].id == 0) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 6,
+                color: Colors.white,
+              );
+            }
             return Padding(
               padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
               child: Container(
                 width: MediaQuery.of(context).size.width, // Span across the screen width
                 child: Material(
-                  color: Colors.grey, // Background color of the button
+                  color: searchResults[resultIndex].is_favorite? Colors.amber[700] : Colors.green[300], // Background color of the button
                   child: InkWell(
                     onTap: () {
-                      // Handle button tap here
-                      // [TODO] Navigate to map screen and show the selected bin
-                      print("Button ${searchResults[resultIndex]} tapped");
+                      Navigator.pushReplacementNamed(context, '/map', arguments: {                      // ){
+                        'bin_id': searchResults[resultIndex].id,
+                      });
                     },
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
@@ -277,22 +286,26 @@ class _SearchState extends State<Search> {
       // BOTTOM NAVIGATION BAR
       ////////
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.green,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
+            backgroundColor: Color(0xFF81C784),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
             label: 'Map',
+            backgroundColor: Color(0xFF81C784),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.list),
+            label: 'List',
+            backgroundColor: Color(0xFF81C784),
           ),
         ],
         currentIndex: 2,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Colors.white,
         onTap: (int index) {
           if (index == 0) {
             Navigator.pushReplacementNamed(context, '/profile');
