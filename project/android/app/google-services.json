@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1067138168383",
+    "project_id": "bin-finder-f19c2",
+    "storage_bucket": "bin-finder-f19c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067138168383:android:b2cde6e6e4950eb63c2a8a",
+        "android_client_info": {
+          "package_name": "com.fe.up.pt.binfinder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzKkRkXdmxyY3rrJ8Bkc-kdYpmpd6Xkg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
