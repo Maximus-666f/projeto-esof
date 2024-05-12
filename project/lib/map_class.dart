@@ -6,6 +6,8 @@ import 'package:flutter_compass/flutter_compass.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MapClass extends StatefulWidget {
   @override
@@ -20,22 +22,21 @@ enum BinType {
 }
 
 class StructMarkerItem {
-  final int id; // needed to keep track of the bin that was selected in the search page
+  final String id; // needed to keep track of the bin that was selected in the search page
   final BinType bintype;
   final double latitude;
   final double longitude;
   final int distance;
-  final int likes;
-  final int dislikes;
   final bool is_favorite;
-  final bool is_liked;
-  final bool is_disliked;
 
-  StructMarkerItem(this.id, this.bintype, this.latitude, this.longitude, this.distance, this.likes, this.dislikes, this.is_favorite, this.is_liked, this.is_disliked);
+  StructMarkerItem(this.id, this.bintype, this.latitude, this.longitude, this.distance, this.is_favorite);
 }
 
 
 class _MapState extends State<MapClass> {
+  final database = FirebaseDatabase.instance.ref();
+  String user_id = FirebaseAuth.instance.currentUser!.uid!;
+
   // Variables to store the toggle state of each type of bin
   bool displayBlackBins = true;
   bool displayGreenBins = true;
@@ -47,24 +48,25 @@ class _MapState extends State<MapClass> {
   bool activated_display_yellow_bins_button = false;
   bool activated_display_blue_bins_button = false;
 
-  List<StructMarkerItem> searchResults = [
-    new StructMarkerItem(1, BinType.Black, 41.173000, -8.599700, 20, 10, 2, false, true, false),
-    new StructMarkerItem(2, BinType.Green, 41.165000, -8.599700, 30, 5, 1, true, true, false),
-    new StructMarkerItem(3, BinType.Yellow, 41.178000, -8.586700, 40, 3, 0, false, false, false),
-    new StructMarkerItem(4, BinType.Blue, 41.172000, -8.594700, 50, 1, 0, false, false, false),
-    new StructMarkerItem(5, BinType.Black, 41.177000, -8.569700, 70, 15, 7, false, false, true),
-    new StructMarkerItem(6, BinType.Green, 41.171000, -8.596700, 80, 20, 5, false, false, false),
-    new StructMarkerItem(7, BinType.Yellow, 41.172000, -8.597700, 90, 25, 3, false, true, false),
-    new StructMarkerItem(8, BinType.Blue, 41.173000, -8.599200, 100, 30, 2, false, false, false),
-    new StructMarkerItem(9, BinType.Black, 41.174000, -8.593700, 120, 35, 10, false, false, false),
-    new StructMarkerItem(10, BinType.Green, 41.175000, -8.594700, 130, 40, 8, false, false, false),
-    new StructMarkerItem(11, BinType.Yellow, 41.176000, -8.598700, 140, 45, 5, false, true, false),
-    new StructMarkerItem(12, BinType.Black, 41.177000, -8.591700, 150, 50, 3, false, false, false),
-    new StructMarkerItem(13, BinType.Black, 41.178000, -8.559700, 170, 55, 15, false, false, true),
-    new StructMarkerItem(14, BinType.Blue, 41.179000, -8.569700, 180, 60, 12, false, false, false),
-    new StructMarkerItem(15, BinType.Green, 41.174000, -8.579700, 190, 65, 10, false, false, false),
-    // Add search results here
-  ];
+  List<StructMarkerItem> searchResults = [];
+  // List<StructMarkerItem> searchResults = [
+  //   new StructMarkerItem(1, BinType.Black, 41.173000, -8.599700, 20, 10, 2, false, true, false),
+  //   new StructMarkerItem(2, BinType.Green, 41.165000, -8.599700, 30, 5, 1, true, true, false),
+  //   new StructMarkerItem(3, BinType.Yellow, 41.178000, -8.586700, 40, 3, 0, false, false, false),
+  //   new StructMarkerItem(4, BinType.Blue, 41.172000, -8.594700, 50, 1, 0, false, false, false),
+  //   new StructMarkerItem(5, BinType.Black, 41.177000, -8.569700, 70, 15, 7, false, false, true),
+  //   new StructMarkerItem(6, BinType.Green, 41.171000, -8.596700, 80, 20, 5, false, false, false),
+  //   new StructMarkerItem(7, BinType.Yellow, 41.172000, -8.597700, 90, 25, 3, false, true, false),
+  //   new StructMarkerItem(8, BinType.Blue, 41.173000, -8.599200, 100, 30, 2, false, false, false),
+  //   new StructMarkerItem(9, BinType.Black, 41.174000, -8.593700, 120, 35, 10, false, false, false),
+  //   new StructMarkerItem(10, BinType.Green, 41.175000, -8.594700, 130, 40, 8, false, false, false),
+  //   new StructMarkerItem(11, BinType.Yellow, 41.176000, -8.598700, 140, 45, 5, false, true, false),
+  //   new StructMarkerItem(12, BinType.Black, 41.177000, -8.591700, 150, 50, 3, false, false, false),
+  //   new StructMarkerItem(13, BinType.Black, 41.178000, -8.559700, 170, 55, 15, false, false, true),
+  //   new StructMarkerItem(14, BinType.Blue, 41.179000, -8.569700, 180, 60, 12, false, false, false),
+  //   new StructMarkerItem(15, BinType.Green, 41.174000, -8.579700, 190, 65, 10, false, false, false),
+  //   // Add search results here
+  // ];
 
 
   // LocationPermission permission = await Geolocator.checkPermission();
@@ -103,6 +105,15 @@ class _MapState extends State<MapClass> {
   double initial_latitude = 0;
   double initial_longitude = 0;
 
+  Future<void> _initSearchResults() async {
+    final snapshot = await database.child('/bins_coordinates/').get();
+    final data = snapshot.value as Map<dynamic, dynamic>;
+    data.forEach((key, value) {
+      int distance = Geolocator.distanceBetween(initial_latitude, initial_longitude, value['latitude'], value['longitude']).toInt();
+      searchResults.add(StructMarkerItem(key, value['type'] == 'black' ? BinType.Black : value['type'] == 'green' ? BinType.Green : value['type'] == 'yellow' ? BinType.Yellow : BinType.Blue, value['latitude'], value['longitude'], distance, false));
+    });
+  }
+
   Future<Stream<Position>> _initPositionStream() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     while (!serviceEnabled) {
@@ -130,9 +141,11 @@ class _MapState extends State<MapClass> {
     initial_longitude = aux_position.longitude;
 
     // [TODO] get the bin positions and which bins are favorites
+    await _initSearchResults();
 
     return aux.map((e) => e!);
   }
+
   final MapController customMapController = MapController();
 
   Marker getMarkerWhereIdMatch(List<Marker> markers) {
@@ -146,7 +159,7 @@ class _MapState extends State<MapClass> {
     // if (marker_result.point.latitude != 0 && marker_result.point.longitude != 0) {
     //   customMapController.move(LatLng(marker_result.point.latitude, marker_result.point.longitude), 16.0);
     // }
-    popup_id_to_show_for_popup = 0;
+    popup_id_to_show_for_popup = "";
     return marker_result;
   }
 
@@ -198,8 +211,8 @@ class _MapState extends State<MapClass> {
   final PopupController _popupLayerController = PopupController();
 
   Map data = {};
-  late int popup_id_to_show_for_popup;
-  late int popup_id_to_show_for_map;
+  late String popup_id_to_show_for_popup;
+  late String popup_id_to_show_for_map;
 
   void _openMaps(double latitude, double longitude) async {
     final Uri url = Uri.parse('https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude');
@@ -221,8 +234,8 @@ class _MapState extends State<MapClass> {
       popup_id_to_show_for_popup = data['bin_id'];
       popup_id_to_show_for_map = data['bin_id'];
     } catch(e) {
-      popup_id_to_show_for_popup = 0;
-      popup_id_to_show_for_map = 0;
+      popup_id_to_show_for_popup = "";
+      popup_id_to_show_for_map = "";
     }
 
     return Scaffold(
@@ -254,9 +267,9 @@ class _MapState extends State<MapClass> {
                 ),
                 onTap: (_, __) => _popupLayerController.hideAllPopups(),
                 onMapReady: () {
-                  if (popup_id_to_show_for_map != 0) {
+                  if (popup_id_to_show_for_map != "") {
                     customMapController.move(LatLng(searchResults.firstWhere((element) => element.id == popup_id_to_show_for_map).latitude, searchResults.firstWhere((element) => element.id == popup_id_to_show_for_map).longitude), 16.0);
-                    popup_id_to_show_for_map = 0;
+                    popup_id_to_show_for_map = "";
                   }
                 },
               ),
@@ -327,7 +340,6 @@ class _MapState extends State<MapClass> {
                                       ]
                                   ),
                                   onPressed: () {
-                                    // [TODO] open google maps and show the directions to the bin
                                     _openMaps(item.latitude, item.longitude);
                                   },
                                 ),
@@ -356,61 +368,184 @@ class _MapState extends State<MapClass> {
                                     // [TODO] and set this popup to be opened in the map the next time the map loads in
                                   },
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceEvenly,
-                                  children: [
-                                    Expanded(
-                                      child: MaterialButton(
-                                        color: item.is_liked
-                                            ? Colors.green
-                                            : Colors.white,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceEvenly,
-                                          children: [
-                                            Icon(Icons.thumb_up,
-                                                color: item.is_liked ? Colors
-                                                    .white : Colors.green),
-                                            Text('${item.likes}',
-                                                style: TextStyle(
-                                                    color: item.is_liked
-                                                        ? Colors.white
-                                                        : Colors.green)),
-                                          ],
+                                StreamBuilder(
+                                  stream: database.child('bins_votes').child(item.id).onValue,
+                                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.active) {
+                                      final data = Map<String, dynamic>.from(snapshot.data!.snapshot.value);
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                            child: MaterialButton(
+                                              color: (data['user_votes']?[user_id]?? null) == 1
+                                                  ? Colors.green
+                                                  : Colors.white,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .spaceEvenly,
+                                                children: [
+                                                  Icon(Icons.thumb_up,
+                                                      color: (data['user_votes']?[user_id]?? null) == 1
+                                                          ? Colors
+                                                          .white
+                                                          : Colors.green),
+                                                  Text('${data['likes']}',
+                                                      style: TextStyle(
+                                                          color: (data['user_votes']?[user_id]?? null) == 1
+                                                              ? Colors.white
+                                                              : Colors.green)),
+                                                ],
+                                              ),
+                                              onPressed: () async {
+                                                // showDialog(
+                                                //   context:context,
+                                                //   barrierDismissible: false,
+                                                //   builder: (context) => Center(
+                                                //     child: CircularProgressIndicator(
+                                                //       valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                                                //     ),
+                                                //   ),
+                                                // );
+                                                String bin_type_string = item.bintype == BinType.Black ? 'black_bins' : item.bintype == BinType.Green ? 'green_bins' : item.bintype == BinType.Yellow ? 'yellow_bins' : 'blue_bins';
+                                                int? user_vote = data['user_votes']?[user_id]?? null;
+                                                // caso em que user não tinha like nem dislike
+                                                if (user_vote == null) {
+                                                  await database.update({
+                                                    '/users_info/${user_id}/${bin_type_string}/liked': ServerValue
+                                                        .increment(1),
+                                                    '/bins_votes/${item
+                                                        .id}/likes': ServerValue
+                                                        .increment(1),
+                                                    '/bins_votes/${item
+                                                        .id}/user_votes/${user_id}': 1,
+                                                  });
+                                                };
+                                                // caso em que user tinha like
+                                                if (user_vote == 1) {
+                                                  await database.update({
+                                                    '/users_info/${user_id}/${bin_type_string}/liked': ServerValue
+                                                        .increment(-1),
+                                                    '/bins_votes/${item
+                                                        .id}/likes': ServerValue
+                                                        .increment(-1),
+                                                    '/bins_votes/${item
+                                                        .id}/user_votes/${user_id}': null,
+                                                  });
+                                                };
+                                                // caso em que user tinha dislike
+                                                if (user_vote == 0) {
+                                                  await database.update({
+                                                    '/users_info/${user_id}/${bin_type_string}/liked': ServerValue
+                                                        .increment(1),
+                                                    '/users_info/${user_id}/${bin_type_string}/disliked': ServerValue
+                                                        .increment(-1),
+                                                    '/bins_votes/${item
+                                                        .id}/likes': ServerValue
+                                                        .increment(1),
+                                                    '/bins_votes/${item
+                                                        .id}/dislikes': ServerValue
+                                                        .increment(-1),
+                                                    '/bins_votes/${item
+                                                        .id}/user_votes/${user_id}': 1,
+                                                  });
+                                                };
+                                                // Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: MaterialButton(
+                                              color: (data['user_votes']?[user_id]?? null) == 0
+                                                  ? Colors.red
+                                                  : Colors.white,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .spaceEvenly,
+                                                children: [
+                                                  Icon(Icons.thumb_down,
+                                                      color: (data['user_votes']?[user_id]?? null) == 0
+                                                          ? Colors
+                                                          .white
+                                                          : Colors.red),
+                                                  Text('${data['dislikes']}',
+                                                      style: TextStyle(
+                                                          color: (data['user_votes']?[user_id]?? null) == 0
+                                                              ? Colors.white
+                                                              : Colors.red)),
+                                                ],
+                                              ),
+                                              onPressed: () async {
+                                                // showDialog(
+                                                //   context:context,
+                                                //   barrierDismissible: false,
+                                                //   builder: (context) => Center(
+                                                //     child: CircularProgressIndicator(
+                                                //       valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                                                //     ),
+                                                //   ),
+                                                // );
+                                                String bin_type_string = item.bintype == BinType.Black ? 'black_bins' : item.bintype == BinType.Green ? 'green_bins' : item.bintype == BinType.Yellow ? 'yellow_bins' : 'blue_bins';
+                                                int? user_vote = data['user_votes']?[user_id]?? null;
+                                                // caso em que user não tinha like nem dislike
+                                                if (user_vote == null) {
+                                                  await database.update({
+                                                    '/users_info/${user_id}/${bin_type_string}/disliked': ServerValue
+                                                        .increment(1),
+                                                    '/bins_votes/${item
+                                                        .id}/dislikes': ServerValue
+                                                        .increment(1),
+                                                    '/bins_votes/${item
+                                                        .id}/user_votes/${user_id}': 0,
+                                                  });
+                                                };
+                                                // caso em que user tinha dislike
+                                                if (user_vote == 0) {
+                                                  await database.update({
+                                                    '/users_info/${user_id}/${bin_type_string}/dislikes': ServerValue
+                                                        .increment(-1),
+                                                    '/bins_votes/${item
+                                                        .id}/dislikes': ServerValue
+                                                        .increment(-1),
+                                                    '/bins_votes/${item
+                                                        .id}/user_votes/${user_id}': null,
+                                                  });
+                                                };
+                                                // caso em que user tinha like
+                                                if (user_vote == 1) {
+                                                  await database.update({
+                                                    '/users_info/${user_id}/${bin_type_string}/disliked': ServerValue
+                                                        .increment(1),
+                                                    '/users_info/${user_id}/${bin_type_string}/liked': ServerValue
+                                                        .increment(-1),
+                                                    '/bins_votes/${item
+                                                        .id}/dislikes': ServerValue
+                                                        .increment(1),
+                                                    '/bins_votes/${item
+                                                        .id}/likes': ServerValue
+                                                        .increment(-1),
+                                                    '/bins_votes/${item
+                                                        .id}/user_votes/${user_id}': 0,
+                                                  });
+                                                };
+                                                // Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    else {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          valueColor: AlwaysStoppedAnimation<
+                                              Color>(Colors.green),
                                         ),
-                                        onPressed: () {
-                                          // [TODO] like the bin
-                                          // [TODO] and set this popup to be opened in the map the next time the map loads in
-                                        },
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: MaterialButton(
-                                        color: item.is_disliked
-                                            ? Colors.red
-                                            : Colors.white,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceEvenly,
-                                          children: [
-                                            Icon(Icons.thumb_down,
-                                                color: item.is_disliked ? Colors
-                                                    .white : Colors.red),
-                                            Text('${item.dislikes}',
-                                                style: TextStyle(
-                                                    color: item.is_disliked
-                                                        ? Colors.white
-                                                        : Colors.red)),
-                                          ],
-                                        ),
-                                        onPressed: () {
-                                          // [TODO] dislike the bin
-                                          // [TODO] and set this popup to be opened in the map the next time the map loads in
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                                      );
+                                    }
+                                  },
                                 ),
                               ],
                             ),
@@ -423,7 +558,7 @@ class _MapState extends State<MapClass> {
                       duration: const Duration(milliseconds: 500),
                     ),
                     initiallySelected: <PopupSpec>[
-                      if (popup_id_to_show_for_popup != 0)
+                      if (popup_id_to_show_for_popup != "")
                         PopupSpec(marker: getMarkerWhereIdMatch(markers)),
                     ],
                   ),
@@ -505,8 +640,33 @@ class _MapState extends State<MapClass> {
                                   height: 56,
                                   child: FloatingActionButton(
                                     backgroundColor: Colors.white,
-                                    onPressed: () {
-                                      // [TODO] add a new black bin
+                                    onPressed: () async {
+                                      showDialog(
+                                        context:context,
+                                        barrierDismissible: false,
+                                        builder: (context) => Center(
+                                          child: CircularProgressIndicator(
+                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                                          ),
+                                        ),
+                                      );
+
+                                      var binsCoordinatesRef = database.child('bins_coordinates').push();
+                                      var key = binsCoordinatesRef.key!;
+                                      await database.update({
+                                        '/users_info/${user_id}/black_bins/added': ServerValue.increment(1),
+                                        '/bins_coordinates/${key}': {
+                                          'latitude': await Geolocator.getCurrentPosition().then((value) => value.latitude),
+                                          'longitude': await Geolocator.getCurrentPosition().then((value) => value.longitude),
+                                          'type': 'black',
+                                        },
+                                        '/bins_votes/${key}': {
+                                          'likes': 0,
+                                          'dislikes': 0,
+                                        },
+                                      });
+
+                                      Navigator.of(context).pop();
                                       Navigator.of(context).pop();
                                       setState(() {});
                                     },
@@ -523,8 +683,31 @@ class _MapState extends State<MapClass> {
                                   height: 56,
                                   child: FloatingActionButton(
                                     backgroundColor: Colors.white,
-                                    onPressed: () {
-                                      // [TODO] add a new green bin
+                                    onPressed: () async {
+                                      showDialog(
+                                        context:context,
+                                        barrierDismissible: false,
+                                        builder: (context) => Center(
+                                          child: CircularProgressIndicator(
+                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                                          ),
+                                        ),
+                                      );
+                                      var binsCoordinatesRef = database.child('bins_coordinates').push();
+                                      var key = binsCoordinatesRef.key!;
+                                      await database.update({
+                                        '/users_info/${user_id}/green_bins/added': ServerValue.increment(1),
+                                        '/bins_coordinates/${key}': {
+                                          'latitude': await Geolocator.getCurrentPosition().then((value) => value.latitude),
+                                          'longitude': await Geolocator.getCurrentPosition().then((value) => value.longitude),
+                                          'type': 'green',
+                                        },
+                                        '/bins_votes/${key}': {
+                                          'likes': 0,
+                                          'dislikes': 0,
+                                        },
+                                      });
+                                      Navigator.of(context).pop();
                                       Navigator.of(context).pop();
                                       setState(() {});
                                     },
@@ -545,8 +728,31 @@ class _MapState extends State<MapClass> {
                                   height: 56,
                                   child: FloatingActionButton(
                                     backgroundColor: Colors.white,
-                                    onPressed: () {
-                                      // [TODO] add a new yellow bin
+                                    onPressed: () async {
+                                      showDialog(
+                                        context:context,
+                                        barrierDismissible: false,
+                                        builder: (context) => Center(
+                                          child: CircularProgressIndicator(
+                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                                          ),
+                                        ),
+                                      );
+                                      var binsCoordinatesRef = database.child('bins_coordinates').push();
+                                      var key = binsCoordinatesRef.key!;
+                                      await database.update({
+                                        '/users_info/${user_id}/yellow_bins/added': ServerValue.increment(1),
+                                        '/bins_coordinates/${key}': {
+                                          'latitude': await Geolocator.getCurrentPosition().then((value) => value.latitude),
+                                          'longitude': await Geolocator.getCurrentPosition().then((value) => value.longitude),
+                                          'type': 'yellow',
+                                        },
+                                        '/bins_votes/${key}': {
+                                          'likes': 0,
+                                          'dislikes': 0,
+                                        },
+                                      });
+                                      Navigator.of(context).pop();
                                       Navigator.of(context).pop();
                                       setState(() {});
                                     },
@@ -563,8 +769,32 @@ class _MapState extends State<MapClass> {
                                   height: 56,
                                   child: FloatingActionButton(
                                     backgroundColor: Colors.white,
-                                    onPressed: () {
-                                      // [TODO] add a new blue bin
+                                    onPressed: () async {
+                                      showDialog(
+                                        context:context,
+                                        barrierDismissible: false,
+                                        builder: (context) => Center(
+                                          child: CircularProgressIndicator(
+                                            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                                          ),
+                                        ),
+                                      );
+
+                                      var binsCoordinatesRef = database.child('bins_coordinates').push();
+                                      var key = binsCoordinatesRef.key!;
+                                      await database.update({
+                                        '/users_info/${user_id}/blue_bins/added': ServerValue.increment(1),
+                                        '/bins_coordinates/${key}': {
+                                          'latitude': await Geolocator.getCurrentPosition().then((value) => value.latitude),
+                                          'longitude': await Geolocator.getCurrentPosition().then((value) => value.longitude),
+                                          'type': 'blue',
+                                        },
+                                        '/bins_votes/${key}': {
+                                          'likes': 0,
+                                          'dislikes': 0,
+                                        },
+                                      });
+                                      Navigator.of(context).pop();
                                       Navigator.of(context).pop();
                                       setState(() {});
                                     },

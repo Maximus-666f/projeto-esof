@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "firebase functions:config:set firebase.databaseURL=\"https://bin-finder-f19c2-default-rtdb.europe-west1.firebasedatabase.app\"": "bin-finder-f19c2"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

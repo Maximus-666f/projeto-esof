@@ -135,3 +135,9 @@ Changed/Implemented features:
 - The "delete account" button was implemented in the user's profile page; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/6
 - New button to center the map on the user's position was added; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2
 - In general, the colors were changed everywhere;
+
+Beginning iteration 3 project board:
+
+![beginning iteration 3 project board 1](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/beginning_iteration_3_project_board_screenshot_1.png)
+
+![beginning iteration 3 project board 2](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/beginning_iteration_3_project_board_screenshot_2.png)
