@@ -75,9 +75,9 @@ class _ProfileState extends State<Profile> {
             int blue_bins_added = data['blue_bins']!['added']! as int;
             int blue_bins_liked = data['blue_bins']!['liked']! as int;
             int blue_bins_disliked = data['blue_bins']!['disliked']! as int;
-            int total_bins_added = black_bins_added + green_bins_added + yellow_bins_added + blue_bins_added;
-            int total_bins_liked = black_bins_liked + green_bins_liked + yellow_bins_liked + blue_bins_liked;
-            int total_bins_disliked = black_bins_disliked + green_bins_disliked + yellow_bins_disliked + blue_bins_disliked;
+            int total_bins_added = (black_bins_added + green_bins_added + yellow_bins_added + blue_bins_added);
+            int total_bins_liked = (black_bins_liked + green_bins_liked + yellow_bins_liked + blue_bins_liked);
+            int total_bins_disliked = (black_bins_disliked + green_bins_disliked + yellow_bins_disliked + blue_bins_disliked);
             userInfo = StructUserInfo(
               total_bins_added,
               total_bins_liked,
@@ -157,21 +157,21 @@ class _ProfileState extends State<Profile> {
                         ),
                         TableCell(
                           child: Text(
-                            userInfo.TotalBinsAdded.toString(),
+                            userInfo.BlackBinsAdded.toString(),
                             style: TextStyle(fontSize: screenWidth * 0.05),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         TableCell(
                           child: Text(
-                            userInfo.TotalBinsLiked.toString(),
+                            userInfo.BlackBinsLiked.toString(),
                             style: TextStyle(fontSize: screenWidth * 0.05),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         TableCell(
                           child: Text(
-                            userInfo.TotalBinsDisliked.toString(),
+                            userInfo.BlackBinsDisliked.toString(),
                             style: TextStyle(fontSize: screenWidth * 0.05),
                             textAlign: TextAlign.center,
                           ),

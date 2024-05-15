@@ -84,7 +84,7 @@ class _SearchState extends State<Search> {
       ),
     );
     Position aux_position = await Geolocator.getCurrentPosition();
-
+    searchResults = [];
     final snapshot = await database.child('/bins_coordinates/').get();
     final data = snapshot.value as Map<dynamic, dynamic>;
     data.forEach((key, value) {
@@ -93,6 +93,7 @@ class _SearchState extends State<Search> {
     });
     // order the searchResults by distance
     searchResults.sort((a, b) => a.distance.compareTo(b.distance));
+    searchResults.add(StructSearchItem("0", BinType.Yellow, 200, false));
     return searchResults;
   }
 
@@ -154,7 +155,7 @@ class _SearchState extends State<Search> {
                     skip_next_divider = true;
                     return Container();
                   }
-                  if (searchResults[resultIndex].id == 0) {
+                  if (searchResults[resultIndex].id == "0") {
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 6,

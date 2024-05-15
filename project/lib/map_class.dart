@@ -106,6 +106,7 @@ class _MapState extends State<MapClass> {
   double initial_longitude = 0;
 
   Future<void> _initSearchResults() async {
+    searchResults = [];
     final snapshot = await database.child('/bins_coordinates/').get();
     final data = snapshot.value as Map<dynamic, dynamic>;
     data.forEach((key, value) {
@@ -226,17 +227,25 @@ class _MapState extends State<MapClass> {
     }
   }
 
+  bool is_first_time_building = true;
+
   @override
   Widget build(BuildContext context) {
 
-    try {
-      data = ModalRoute.of(context)!.settings.arguments as Map;
-      popup_id_to_show_for_popup = data['bin_id'];
-      popup_id_to_show_for_map = data['bin_id'];
-    } catch(e) {
-      popup_id_to_show_for_popup = "";
-      popup_id_to_show_for_map = "";
+    if (is_first_time_building) {
+      try {
+        data = ModalRoute
+            .of(context)!
+            .settings
+            .arguments as Map;
+        popup_id_to_show_for_popup = data['bin_id'];
+        popup_id_to_show_for_map = data['bin_id'];
+      } catch (e) {
+        popup_id_to_show_for_popup = "";
+        popup_id_to_show_for_map = "";
+      }
     }
+    is_first_time_building = false;
 
     return Scaffold(
       /////////
