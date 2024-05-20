@@ -156,4 +156,6 @@ End iteration 3 project board:
 
 Sprint 3 retrospective:
 
+We nearly fully implemented our app with Firebase, the only things left to implement with Firebase would be deleting the account and changing the email.
+
 Sprint 3 changelog:
