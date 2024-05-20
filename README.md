@@ -50,7 +50,13 @@ This app will allow the user to access a map with the distribution of trash and 
 
 ### Elevator Pitch
 
-[TODO]
+Já alguma vez ficaste com o lixo na mão sem saber onde o pôr? Isto é um problema do passado.
+
+Com o Bin Finder consegues rápida e eficazmente encontrar um lixo perto de ti! Basta abrir a aplicação e com esse simples toque ter acesso a um mapa que te indica vários lixos na tua proximidade. Também é possível visualizar os lixos em forma de lista e se isso não for que chegue podes ainda filtrar entre os diversos tipos de caixotes tanto no mapa como na lista.
+
+O Bin Finder é dirigido pela sua comunidade, qualquer utilizador consegue dar like ou dislike  de um lixo e também adicionar a localização de um contentor à aplicação. Cada utilizador pode ainda ver a sua contribuição na sua página de perfil e ver o seu impacto.
+
+Do que estás à espera junta-te à comunidade Bin Finder hoje!
 
 ## Requirements
 
@@ -141,3 +147,13 @@ Beginning iteration 3 project board:
 ![beginning iteration 3 project board 1](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/beginning_iteration_3_project_board_screenshot_1.png)
 
 ![beginning iteration 3 project board 2](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/beginning_iteration_3_project_board_screenshot_2.png)
+
+End iteration 3 project board:
+
+![end iteration 3 project board 1](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/end_iteration_3_project_board_screenshot_1.png)
+
+![end iteration 3 project board 2](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/raw/main/end_iteration_3_project_board_screenshot_2.png)
+
+Sprint 3 retrospective:
+
+Sprint 3 changelog:
