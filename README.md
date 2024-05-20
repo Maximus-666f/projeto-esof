@@ -156,6 +156,22 @@ End iteration 3 project board:
 
 Sprint 3 retrospective:
 
-We nearly fully implemented our app with Firebase, the only things left to implement with Firebase would be deleting the account and changing the email.
+We nearly fully implemented our app with Firebase, not only everything isn't hardcoded anymore but we also did all the user creation, the only things left to implement with Firebase would be deleting the account and changing the email.
+
+Happiness meter: We are again somewhat satisfied. We were able to implement nearly everything except for the tests.
 
 Sprint 3 changelog:
+
+Changed/Implemented features:
+- Created login/register user interface; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/31
+- Created forgot password user interface; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/29
+- Created verification email user interface; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/31
+- The user is now able to login or register into the app saving the user's information in firebase; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/31
+- Firebase can now send a verification email to the user; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/31
+- Firebase can now send a password recovery email to the user; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/29
+- Changed the layout of the buttons on the user's profile page; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/6 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/30
+- The "Sign out" and "Change password" buttons are now working with firebase; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/30
+- The map now gets the bin's information from firebase, not hardcoded values; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/2 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/3 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/5
+- The user's profile now gets it's information from firebase, not hardcoded data; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/4
+- Now any interaction from the user with a bin, meaning any like, dislike or bin added, is saved in firebase; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/7 / https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/1
+- The list now shows real values, meaning values taken from firebase, instead of hardcoded values; https://github.com/FEUP-LEIC-ES-2023-24/2LEIC13T3/issues/5
